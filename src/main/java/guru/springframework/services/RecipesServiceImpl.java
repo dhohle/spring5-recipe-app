@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Slf4j
 @Service
-public class RecipesServiceImpl implements RecipeService{
+public class RecipesServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
     private final RecipeCommandToRecipe recipeCommandToRecipe;
     private final RecipeToRecipeCommand recipeToRecipeCommand;
@@ -36,10 +36,10 @@ public class RecipesServiceImpl implements RecipeService{
     }
 
     @Override
-    public Recipe findById(Long l){
+    public Recipe findById(Long l) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
-        if(!recipeOptional.isPresent()){
-            throw new NotFoundException("Recipe Not Found. For Id value: "+l.toString());
+        if (!recipeOptional.isPresent()) {
+            throw new NotFoundException("Recipe Not Found. For Id value: " + l.toString());
         }
         return recipeOptional.get();
     }

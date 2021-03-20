@@ -20,7 +20,7 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
 
     @Override
     public RecipeCommand convert(Recipe source) {
-        if(source == null)
+        if (source == null)
             return null;
         final RecipeCommand command = new RecipeCommand();
         command.setId(source.getId());
@@ -35,9 +35,9 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
         command.setUrl(source.getUrl());
         command.setNotes(notesConverter.convert(source.getNotes()));
 
-        if(source.getCategories()!=null)
+        if (source.getCategories() != null)
             source.getCategories().forEach((Category category) -> command.getCategories().add(categoryConverter.convert(category)));
-        if(source.getIngredients()!=null)
+        if (source.getIngredients() != null)
             source.getIngredients().forEach(ingredient -> command.getIngredients().add(ingredientConverter.convert(ingredient)));
 
         return command;

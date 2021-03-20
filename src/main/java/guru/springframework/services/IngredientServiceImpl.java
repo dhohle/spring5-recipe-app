@@ -79,7 +79,7 @@ public class IngredientServiceImpl implements IngredientService {
             Optional<Ingredient> savedIngredientOptional = savedRecipe.getIngredients().stream()
                     .filter(recipeIngredients -> recipeIngredients.getId().equals(command.getId()))
                     .findFirst();
-            if(!savedIngredientOptional.isPresent()){
+            if (!savedIngredientOptional.isPresent()) {
                 // bad code
                 savedIngredientOptional = savedRecipe.getIngredients().stream()
                         .filter(ingredient -> ingredient.getDescription().equalsIgnoreCase(command.getDescription()))
@@ -94,10 +94,10 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public void deleteById(Long recipeId, Long ingredientId) {
-        log.debug("Deleting ingredient: "+ recipeId+":"+ingredientId);
+        log.debug("Deleting ingredient: " + recipeId + ":" + ingredientId);
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
-        if(recipeOptional.isPresent()){
+        if (recipeOptional.isPresent()) {
             Recipe recipe = recipeOptional.get();
             log.debug("Found recipe");
 
@@ -105,15 +105,15 @@ public class IngredientServiceImpl implements IngredientService {
                     .stream()
                     .filter(ingredient -> ingredient.getId().equals(ingredientId))
                     .findFirst();
-            if(ingredientOptional.isPresent()){
+            if (ingredientOptional.isPresent()) {
                 log.debug("found Ingredient");
                 Ingredient ingredientToDelete = ingredientOptional.get();
                 ingredientToDelete.setRecipe(null);
                 recipe.getIngredients().remove(ingredientOptional.get());
                 recipeRepository.save(recipe);
             }
-        }else{
-            log.debug("Recipe Id not found. Id: "+recipeId);
+        } else {
+            log.debug("Recipe Id not found. Id: " + recipeId);
         }
     }
 }

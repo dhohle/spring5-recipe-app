@@ -27,7 +27,7 @@ public class Recipe {
     private Difficulty difficulty;
 
     @Lob // Blob field
-    private Byte [] image;
+    private Byte[] image;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
@@ -37,19 +37,19 @@ public class Recipe {
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
-            joinColumns = @JoinColumn(name= "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name= "category_id"))
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
 
     public void setNotes(Notes notes) {
-        if(notes != null) {
+        if (notes != null) {
             this.notes = notes;
             this.notes.setRecipe(this);
         }
     }
 
-    public Recipe addIngredient(Ingredient ingredient){
+    public Recipe addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
         return this;

@@ -2,8 +2,6 @@ package guru.springframework.controllers;
 
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
-import guru.springframework.exceptions.NotFoundException;
-import guru.springframework.model.Ingredient;
 import guru.springframework.services.IngredientService;
 import guru.springframework.services.RecipeService;
 import guru.springframework.services.UnitOfMeasureService;
@@ -19,7 +17,8 @@ import java.util.HashSet;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class IngredientControllerTest {
@@ -58,7 +57,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testShowIngredient() throws  Exception{
+    public void testShowIngredient() throws Exception {
         //given
         IngredientCommand command = new IngredientCommand();
 
@@ -73,7 +72,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testNewIngredientForm() throws Exception{
+    public void testNewIngredientForm() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
@@ -92,7 +91,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testDeleteIngredient() throws Exception{
+    public void testDeleteIngredient() throws Exception {
         //then
         mockMvc.perform(get("/recipe/2/ingredient/3/delete"))
                 .andExpect(status().is3xxRedirection())
@@ -101,7 +100,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testUpdateIngredientForm() throws Exception{
+    public void testUpdateIngredientForm() throws Exception {
         //given
         IngredientCommand ingredientCommand = new IngredientCommand();
 
@@ -118,7 +117,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testSaveOrUpdate() throws Exception{
+    public void testSaveOrUpdate() throws Exception {
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(3L);

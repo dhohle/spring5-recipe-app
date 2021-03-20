@@ -1,7 +1,6 @@
 package guru.springframework.commands;
 
 
-import guru.springframework.model.UnitOfMeasure;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

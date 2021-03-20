@@ -8,15 +8,15 @@ import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.*;
 
 public class RecipesServiceImplTest {
 
@@ -31,13 +31,13 @@ public class RecipesServiceImplTest {
     RecipeCommandToRecipe recipeCommandToRecipe;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         recipeService = new RecipesServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
-    public void getRecipeByIdTest() throws Exception{
+    public void getRecipeByIdTest() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
@@ -54,7 +54,7 @@ public class RecipesServiceImplTest {
     }
 
     @Test
-    public void getRecipes() throws Exception{
+    public void getRecipes() throws Exception {
 
         Recipe recipe = new Recipe();
         HashSet recipesData = new HashSet();
@@ -69,7 +69,7 @@ public class RecipesServiceImplTest {
     }
 
     @Test
-    public void testDeleteById() throws Exception{
+    public void testDeleteById() throws Exception {
         //given
         Long idToDelete = 2L;
 
@@ -81,7 +81,7 @@ public class RecipesServiceImplTest {
     }
 
     @Test(expected = NotFoundException.class)
-    public void getRecipebyIdTestNotFound() throws Exception{
+    public void getRecipebyIdTestNotFound() throws Exception {
         Optional<Recipe> recipeOptional = Optional.empty();
         when(this.recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
 

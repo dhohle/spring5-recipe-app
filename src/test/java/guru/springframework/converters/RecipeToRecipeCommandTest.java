@@ -44,7 +44,7 @@ public class RecipeToRecipeCommandTest {
     }
 
     @Test
-    public void convert() throws Exception{
+    public void convert() throws Exception {
         //given
         Recipe recipe = new Recipe();
         recipe.setId(RECIPE_ID);

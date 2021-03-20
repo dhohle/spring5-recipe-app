@@ -24,17 +24,17 @@ public class ImageServiceImplTest {
     ImageService imageService;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         imageService = new ImageServiceImpl(recipeRepository);
     }
 
     @Test
-    public void saveImageFile() throws Exception{
+    public void saveImageFile() throws Exception {
         //given
         Long id = 1L;
         MultipartFile multipartFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain",
-            "Spring Framework Guru".getBytes(StandardCharsets.UTF_8));
+                "Spring Framework Guru".getBytes(StandardCharsets.UTF_8));
 
         Recipe recipe = new Recipe();
         recipe.setId(id);
@@ -50,7 +50,7 @@ public class ImageServiceImplTest {
         //then
         verify(recipeRepository, times(1)).save(argumentCaptor.capture());
         Recipe savedRecipe = argumentCaptor.getValue();
-        assertEquals(multipartFile.getBytes().length,savedRecipe.getImage().length);
+        assertEquals(multipartFile.getBytes().length, savedRecipe.getImage().length);
 
     }
 }

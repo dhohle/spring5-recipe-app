@@ -10,15 +10,16 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.nio.charset.StandardCharsets;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ImageControllerTest {
@@ -33,7 +34,7 @@ public class ImageControllerTest {
     MockMvc mockMvc;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
         controller = new ImageController(imageService, recipeService);
@@ -43,7 +44,7 @@ public class ImageControllerTest {
     }
 
     @Test
-    public void getImageForm() throws  Exception{
+    public void getImageForm() throws Exception {
         //given
         RecipeCommand command = new RecipeCommand();
         command.setId(1L);
@@ -59,27 +60,27 @@ public class ImageControllerTest {
     }
 
     @Test
-    public void handleImagePost() throws Exception{
+    public void handleImagePost() throws Exception {
         MockMultipartFile multipartFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain",
                 "Spring Framework Guru".getBytes(StandardCharsets.UTF_8));
 
         mockMvc.perform(multipart("/recipe/1/image").file(multipartFile))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location", "/recipe/1/show"));
-        verify(imageService,times(1)).saveImageFile(anyLong(), any());
+        verify(imageService, times(1)).saveImageFile(anyLong(), any());
     }
 
     @Test
-    public void renderImageFromDB() throws Exception{
+    public void renderImageFromDB() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
 
         String s = "fake image text";
-        Byte [] bytesBoxed = new Byte[s.getBytes(StandardCharsets.UTF_8).length];
+        Byte[] bytesBoxed = new Byte[s.getBytes(StandardCharsets.UTF_8).length];
 
         int i = 0;
-        for(byte primByte: s.getBytes(StandardCharsets.UTF_8))
+        for (byte primByte : s.getBytes(StandardCharsets.UTF_8))
             bytesBoxed[i++] = primByte;
 
         recipeCommand.setImage(bytesBoxed);
@@ -91,12 +92,12 @@ public class ImageControllerTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
 
-        byte [] responseBytes = response.getContentAsByteArray();
+        byte[] responseBytes = response.getContentAsByteArray();
         assertEquals(s.getBytes(StandardCharsets.UTF_8).length, responseBytes.length);
     }
 
     @Test
-    public void testGetImageNumberFormatException() throws Exception{
+    public void testGetImageNumberFormatException() throws Exception {
         mockMvc.perform(get("/recipe/asdf/recipeimage"))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("400error"));

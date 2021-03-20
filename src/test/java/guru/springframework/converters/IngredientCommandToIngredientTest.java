@@ -20,25 +20,25 @@ public class IngredientCommandToIngredientTest {
     public static final Long ID_VALUE = 1L;
     public static final Long UOM_ID = 2L;
 
-    IngredientCommandToIngredient  converter;
+    IngredientCommandToIngredient converter;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         converter = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
     }
 
     @Test
-    public void testNullObject() throws Exception{
+    public void testNullObject() throws Exception {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmpty() throws Exception{
+    public void testEmpty() throws Exception {
         assertNotNull(converter.convert(new IngredientCommand()));
     }
 
     @Test
-    public void convert() throws Exception{
+    public void convert() throws Exception {
         // given
         IngredientCommand command = new IngredientCommand();
         command.setId(ID_VALUE);
@@ -61,7 +61,7 @@ public class IngredientCommandToIngredientTest {
     }
 
     @Test
-    public void convertWithNullUOM() throws Exception{
+    public void convertWithNullUOM() throws Exception {
         // given
         IngredientCommand command = new IngredientCommand();
         command.setId(ID_VALUE);

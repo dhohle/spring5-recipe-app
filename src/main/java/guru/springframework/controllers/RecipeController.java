@@ -56,7 +56,7 @@ public class RecipeController {
 
     @PostMapping("/recipe")
     public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
             return RECIPE_RECIPEFORM_URL;
         }
@@ -67,7 +67,7 @@ public class RecipeController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception exception){
+    public ModelAndView handleNotFound(Exception exception) {
         log.error("Handling not found exception");
         log.error(exception.getMessage());
 

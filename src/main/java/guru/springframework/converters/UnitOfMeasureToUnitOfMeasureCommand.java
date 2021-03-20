@@ -14,7 +14,7 @@ public class UnitOfMeasureToUnitOfMeasureCommand implements Converter<UnitOfMeas
     @Synchronized
     @Override
     public UnitOfMeasureCommand convert(UnitOfMeasure source) {
-        if(source == null)
+        if (source == null)
             return null;
         final UnitOfMeasureCommand uomc = new UnitOfMeasureCommand();
         uomc.setId(source.getId());

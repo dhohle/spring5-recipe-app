@@ -9,8 +9,6 @@ import guru.springframework.model.Recipe;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.prefs.PreferenceChangeEvent;
-
 import static org.junit.Assert.*;
 
 
@@ -50,7 +48,7 @@ public class RecipeCommandToRecipeTest {
     }
 
     @Test
-    public void convert() throws Exception{
+    public void convert() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(RECIPE_ID);
@@ -87,7 +85,7 @@ public class RecipeCommandToRecipeTest {
         recipeCommand.getIngredients().add(ingredient2);
 
         //when
-        Recipe recipe  = converter.convert(recipeCommand);
+        Recipe recipe = converter.convert(recipeCommand);
 
         //then
         assertNotNull(recipe);

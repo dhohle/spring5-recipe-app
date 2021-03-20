@@ -16,8 +16,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 public class IngredientServiceImplTest {
@@ -32,19 +33,19 @@ public class IngredientServiceImplTest {
 
     IngredientService ingredientService;
 
-    public IngredientServiceImplTest(){
+    public IngredientServiceImplTest() {
         this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
         this.ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient, recipeRepository, unitOfMeasureRepository);
     }
 
     @Test
-    public void findByRecipeAndRecipeId() throws Exception{
+    public void findByRecipeAndRecipeId() throws Exception {
         //given
         Recipe recipe = new Recipe();
         recipe.setId(1L);
@@ -66,7 +67,7 @@ public class IngredientServiceImplTest {
         when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
 
         //when
-        IngredientCommand ingredientCommand= ingredientService.findByRecipeIdAndIngredientId(1L, 3L);
+        IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId(1L, 3L);
 
         //then
         assertEquals(Long.valueOf(3L), ingredientCommand.getId());
@@ -75,7 +76,7 @@ public class IngredientServiceImplTest {
     }
 
     @Test
-    public void testSaveRecipeCommand(){
+    public void testSaveRecipeCommand() {
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(3L);
@@ -100,7 +101,7 @@ public class IngredientServiceImplTest {
     }
 
     @Test
-    public void testDeleteById() throws Exception{
+    public void testDeleteById() throws Exception {
         //given
         Recipe recipe = new Recipe();
         Ingredient ingredient = new Ingredient();
